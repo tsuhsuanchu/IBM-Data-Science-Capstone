@@ -56,15 +56,15 @@ app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
 # TASK 2:
 # Add a callback function for `site-dropdown` as input, `success-pie-chart` as output
 @app.callback([Output(component_id='success-pie-chart', component_property='children')],
-[Input(component_id='site-dropdown', component_property='value')],
+                [Input(component_id='site-dropdown', component_property='value')]
 
 def get_pie_chart(site):
     filtered_df=spacex_df
     if site=='ALL':
         filtered_df=spacex_df
-        fig=px.pie(spacex_df,values='class',
-        names='Launch Site',
-        title='Success Count for all launch sites')
+        fig=px.pie(spacex_df,values='class count',
+        names='class',
+        title='Total Success Launches for site')
         return fig
     else:
         df_site_filtered=spacex_df[spacex_df['Launch Site']== site]
@@ -74,6 +74,7 @@ def get_pie_chart(site):
         return fig
 # TASK 4:
 # Add a callback function for `site-dropdown` and `payload-slider` as inputs, `success-payload-scatter-chart` as output
+
 @app.callback(Output(component_id='success-payload-scatter-chart',component_property='figure'),
                 [Input(component_id='site-dropdown',component_property='value'),
                 Input(component_id='payload-slider',component_property='value')])
